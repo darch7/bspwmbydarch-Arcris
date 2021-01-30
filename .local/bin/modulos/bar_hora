@@ -1,0 +1,4 @@
+#!/bin/sh
+
+hora=$(date | awk '{ print $5}' | cut -c 1-5)
+echo "$hora"
