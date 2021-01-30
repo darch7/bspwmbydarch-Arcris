@@ -54,7 +54,7 @@ module-margin-right = 1
 enable-ipc = true
 modules-left =guionusuario usuario arribacierra2 bspwm xwindow
 ;modules-center =
-modules-right =arribaabre lluvia frio calor arribacierra abajoabre ram cpu temperature xbacklight pulseaudio abajocierra arribaabre fecha slash hora arribacierra abajoabre battery wifi guionwifi
+modules-right =abajoabre pacman-updates ram cpu temperature xbacklight pulseaudio abajocierra arribaabre fecha slash hora arribacierra abajoabre battery wifi guionwifi
 
 wm-restack = bspwm
 cursor-click = pointer
@@ -185,7 +185,7 @@ format-foreground = ${colors.color11}
 [module/ram]
 type = custom/script
 exec = bar_ram 2>/dev/null
-format = "  <label>"
+format = "|   <label>"
 click-left = st -e htop
 label = %output%
 label-padding = 0
@@ -193,43 +193,6 @@ tail = true
 interval = 10
 label-foreground = ${colors.color3}
 format-foreground = ${colors.color3}
-
-[module/lluvia]
-type = custom/script
-exec = bar_lluvia 2>/dev/null
-format ="<label>"
-click-left = st -e sh -c 'clima ; $SHELL'
-label = %output%
-label-padding = 0
-tail = true
-interval = 7200
-label-foreground = ${colors.color14}
-format-foreground = ${colors.color14}
-
-[module/frio]
-type = custom/script
-exec = bar_frio 2>/dev/null
-format ="<label>"
-click-left = st -e sh -c 'clima ; $SHELL'
-label = %output%
-label-padding = 0
-tail = true
-interval = 7200
-label-foreground = ${colors.color14}
-format-foreground = ${colors.color14}
-
-[module/calor]
-type = custom/script
-exec = bar_calor 2>/dev/null
-format ="<label>"
-click-left = st -e sh -c 'clima ; $SHELL'
-label = %output%
-label-padding = 0
-tail = true
-interval = 7200
-label-foreground = ${colors.color14}
-format-foreground = ${colors.color14}
-
 
 [module/cpu]
 type = custom/script
@@ -245,7 +208,7 @@ format-foreground = ${colors.color256}
 [module/fecha]
 type = custom/script
 exec = bar_fecha 2>/dev/null
-format ="<label>"
+format =" <label>"
 label = %output%
 label-padding = 0
 interval = 5
@@ -257,7 +220,7 @@ click-left = setsid -f st -e calcurse
 [module/hora]
 type = custom/script
 exec = bar_hora 2>/dev/null
-format = "<label>"
+format = " <label>"
 label = %output%
 label-padding = 0
 interval = 5
@@ -275,6 +238,13 @@ label = %output%
 label-padding= 0
 label-foreground = ${colors.color14}
 format-foreground = ${colors.color14}
+
+[module/pacman-updates]
+type = custom/script
+exec = checkupdates | wc -l | awk -v o='%{F#7fff00}' -v r='%{F#FF0000}' -v q='%{F-}' '{if ($0 > 0) print r" "q " : " $0; else print o" "q " : " $0}' 
+interval = 300
+label = %output%
+format-background = ${colors.background}
 
 ; Separadores --------------------------------------------------------------
 [module/arribaabre]
@@ -435,17 +405,6 @@ content-foreground = ${colors.color10}
 ;bar-volume-empty-font = 2
 ;bar-volume-empty-foreground = ${colors.foreground-alt}
 
-;[module/pacman-updates]
-;type = custom/script
-;exec = checkupdates | wc -l
-;interval = 1000
-;format =" <label>"
-;format-warn =" <label-warn>"
-;label = Up: %output%
-;label-warn = Up: %output%
-;format-foreground = #ffbb00
-;format-warn-foreground = #D6000A
-
 ;[module/memory]
 ;type = internal/memory
 ;interval = 2
@@ -453,6 +412,42 @@ content-foreground = ${colors.color10}
 ;format-prefix-foreground = ${colors.color3}
 ;label =%percentage_used%%
 ;label-foreground = ${colors.foreground-alt}
+
+;[module/lluvia]
+;type = custom/script
+;exec = bar_lluvia 2>/dev/null
+;format ="<label>"
+;click-left = st -e sh -c 'clima ; $SHELL'
+;label = %output%
+;label-padding = 0
+;tail = true
+;interval = 7200
+;label-foreground = ${colors.color14}
+;format-foreground = ${colors.color14}
+
+;[module/frio]
+;type = custom/script
+;exec = bar_frio 2>/dev/null
+;format ="<label>"
+;click-left = st -e sh -c 'clima ; $SHELL'
+;label = %output%
+;label-padding = 0
+;tail = true
+;interval = 7200
+;label-foreground = ${colors.color14}
+;format-foreground = ${colors.color14}
+
+;[module/calor]
+;type = custom/script
+;exec = bar_calor 2>/dev/null
+;format ="<label>"
+;click-left = st -e sh -c 'clima ; $SHELL'
+;label = %output%
+;label-padding = 0
+;tail = true
+;interval = 7200
+;label-foreground = ${colors.color14}
+;format-foreground = ${colors.color14}
 
 ; vim:ft=dosini
 
