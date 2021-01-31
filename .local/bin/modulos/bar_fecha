@@ -1,4 +1,4 @@
 #!/bin/sh
 
-fecha=$(date | awk '{ print $1", " $2" " $3}')
+fecha=$(date +%d,%b)
 echo "$fecha"
