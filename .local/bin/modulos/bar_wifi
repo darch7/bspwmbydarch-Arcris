@@ -1,14 +1,16 @@
 #!/bin/sh
 
+ethernet=$(ls /sys/class/net/ | grep '^en.\+')
+wifi=$(ls /sys/class/net/ | grep '^wl.\+')
 
 # cambiar las interfaces en caso de tener otro hardware ejemplo wlan0, wlo etc etc.
 LOCO=$(ip ad | awk '/state UP/ { print $2 }' | cut -d":" -f1)
-if [ ${LOCO} == "wlan0" ]
+if [ ${LOCO} == "$wifi" ]
 then
 icono=""
-ssid=$(cat /proc/net/wireless | awk 'NR==3 {printf "%0.0f%%\n", $3/70*100}')
+porcentaje=$(cat /proc/net/wireless | awk 'NR==3 {printf "%0.0f%%\n", $3/70*100}')
 #ssid=$(iwgetid -r)
-elif [[ ${LOCO} =~ "enp0s25" ]]
+elif [[ ${LOCO} =~ "$ethernet" ]]
 then
 icono""
 ssid="Red"
@@ -16,4 +18,4 @@ else
 icono=""
 ssid="N/A"
 fi
-echo "$ssid"
+echo "$porcentaje" "$ssid" 
