@@ -1,5 +1,8 @@
 #!/bin/bash
 
+ethernet=$(ls /sys/class/net/ | grep '^en.\+')
+wifi=$(ls /sys/class/net/ | grep '^wl.\+')
+
 print_bytes() {
     if [ "$1" -eq 0 ] || [ "$1" -lt 1000 ]; then
         bytes="0 kB/s"
@@ -27,7 +30,7 @@ print_bit() {
 }
 
 INTERVAL=10
-INTERFACES="enp0s25 wlp3s0"
+INTERFACES="$ethernet $wifi"
 
 declare -A bytes
 
