@@ -11,12 +11,13 @@
 #_______________________Atajos Basicos__________________________________
 # launch menu
 super + {_,shift +} d
-		{rofi -modi drun -show drun -width 22,pass rofi_root}
+		{rofi -modi drun -show drun -width 22,rofi -modi drun -opacity "80" -show window -show-icons -width 22}
+
 #Terminal
 super + {_,shift +} Return
 		{st,st -e tmux} 
 # Menu/Apagado/Reboot/Recargar,bspwm,sxhkd/bloqueodepantalla
-super + BackSpace
+super + space
 		$HOME/.local/bin/scripts/menuapagado
 # Cerrar apps<
 super + q
@@ -180,5 +181,5 @@ super + alt + space
 	polybar-msg cmd hide 
 	
 # Mostrar Polybar 
-super + ctrl + space 
+super + ctrl + space   
 	polybar-msg cmd show
