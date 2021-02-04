@@ -11,7 +11,7 @@
     horizontal_padding = 10
     frame_width = 3
 # Bordes De Notificaciones 
-frame_color = "#FF51DC"
+frame_color = "#03B4CB"
 	
     # Define a color for the separator.
     # possible values are:
