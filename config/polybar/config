@@ -1,6 +1,8 @@
 
 
-; Configuracion personal de polybar con scripts personalizados en .local/bin (la mayoria de las cosas que aparecen en la barra son scripts individuales).
+; Configuracion personal de polybar con scripts personalizados
+; en .local/bin (la mayoria de las cosas que aparecen en la 
+; barra son scripts individuales).
 
 [colors]
 background = ${xrdb:background}
@@ -41,6 +43,7 @@ font-1 = "Font Awesome 5 Free:style=Solid:size=11"
 font-2 = "Font Awesome:style=Solid:size=11"
 font-3 = "Source Han Sans JP:Bold:size=12"
 font-4 = "JoyPixels:style=Regular:size=9"
+;font-5 = "Hack Nerd Font Mono:style=Regular:size=9"
 background = ${colors.background}
 foreground = ${colors.foreground}
 line-size = 3
@@ -52,9 +55,9 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 enable-ipc = true
-modules-left =guionusuario usuario arribacierra2 bspwm xwindow
+modules-left =bspwm logotitulo xwindow
 ;modules-center =
-modules-right =abajoabre pacman-updates ram cpu temperature xbacklight pulseaudio abajocierra arribaabre fecha slash hora arribacierra abajoabre battery wifi guionwifi
+modules-right =pacman-updates ram cpu temperature xbacklight pulseaudio fecha slash hora battery wifi usuario 
 
 wm-restack = bspwm
 cursor-click = pointer
@@ -62,7 +65,7 @@ cursor-scroll = ns-resize
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:14:...%
+label = %title:0:18:...%
 label-foreground = ${colors.color2}
 format-foreground = ${colors.color2}
 
@@ -78,13 +81,18 @@ label-occupied-padding = 1
 label-urgent = %name%
 label-urgent-foreground = ${colors.color1}
 label-urgent-padding = 1
-label-empty =
-label-empty-foreground = ${colors.foreground-alt}
+label-empty = %name%
+label-empty-foreground = ${colors.color0}
 label-empty-padding = 1
+label-focused-background = ${colors.background}
+label-focused-underline-background = ${colors.background}
+label-occupied-background = ${colors.background}
+label-urgent-background = ${colors.background}
+label-empty-background = ${colors.background}
 
 [module/xbacklight]
 type = internal/xbacklight
-format =|  <label> <%percentage%%>
+format =|   <label> <%percentage%%>
 label = %percentage%%
 label-foreground = ${colors.color7}
 format-foreground = ${colors.color7}
@@ -96,8 +104,8 @@ card = intel_backlight
 
 [module/pulseaudio]
 type = internal/pulseaudio
-format-volume = "|  <label-volume>"
-format-muted = "|  <label-muted>"
+format-volume = "|   <label-volume>"
+format-muted = "|   <label-muted>"
 label-volume = %percentage%%
 label-muted = %percentage%%
 label-volume-foreground = ${colors.color4}
@@ -121,13 +129,13 @@ label-charging-foreground = ${colors.color13}
 label-discharging = %percentage%%
 label-discharging-foreground = ${colors.color13}
 
-label-full = 
+label-full =| 
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+ramp-capacity-0 =| 
+ramp-capacity-1 =| 
+ramp-capacity-2 =| 
+ramp-capacity-3 =| 
+ramp-capacity-4 =| 
 ramp-capacity-foreground = ${colors.color13}
 
 animation-charging-0 = 
@@ -136,11 +144,11 @@ animation-charging-2 = 
 animation-charging-framerate = 600
 animation-charging-foreground = ${colors.color13}
 
-animation-discharging-0= 
-animation-discharging-1= 
-animation-discharging-2= 
-animation-discharging-3= 
-animation-discharging-4= 
+animation-discharging-0=| 
+animation-discharging-1=| 
+animation-discharging-2=| 
+animation-discharging-3=| 
+animation-discharging-4=| 
 animation-discharging-framerate = 500
 animation-discharging-foreground = ${colors.color13}
 
@@ -170,10 +178,23 @@ screenchange-reload = true
 margin-top = 5
 margin-bottom = 0
 
+[module/network-trafico]
+type = custom/script
+exec = ~/.local/bin/modulos/bar_network_trafico
+format = "| <label> |"
+click-left = st -e nmtui
+label = %output% 
+label-padding = 0
+tail = true
+label-foreground = ${colors.color11}
+format-foreground = ${colors.color11}
+format-background = ${colors.background}
+
 [module/wifi]
 type = custom/script
 exec = bar_wifi 2>/dev/null
-format = "|  <label>"
+format = "|<label>"
+;format = "|  <label>"
 click-left = st -e nmtui
 label = %output% 
 label-padding = 0
@@ -185,7 +206,7 @@ format-foreground = ${colors.color11}
 [module/ram]
 type = custom/script
 exec = bar_ram 2>/dev/null
-format = "|   <label>"
+format = "|   <label>"
 click-left = st -e htop
 label = %output%
 label-padding = 0
@@ -197,7 +218,8 @@ format-foreground = ${colors.color3}
 [module/cpu]
 type = custom/script
 exec = bar_cpu 2>/dev/null
-format = "|  <label>"
+format = "|   <label>"
+click-left = st -e htop
 label = %output%
 label-padding = 0
 tail = true
@@ -208,7 +230,7 @@ format-foreground = ${colors.color256}
 [module/fecha]
 type = custom/script
 exec = bar_fecha 2>/dev/null
-format =" <label>"
+format ="|   <label>"
 label = %output%
 label-padding = 0
 interval = 5
@@ -232,8 +254,7 @@ click-left = setsid -f st -e calcurse
 [module/usuario]
 type = custom/script
 exec = bar_usuario 2>/dev/null
-format = " <label>"
-click-left = zathura $HOME/.config/sxhkd/atajos/atajos.pdf
+format = " <label>"
 label = %output%
 label-padding= 0
 label-foreground = ${colors.color14}
@@ -241,35 +262,13 @@ format-foreground = ${colors.color14}
 
 [module/pacman-updates]
 type = custom/script
-exec = checkupdates | wc -l | awk -v o='%{F#7fff00}' -v r='%{F#FF0000}' -v q='%{F-}' '{if ($0 > 0) print r" "q " : " $0; else print o" "q " : " $0}' 
+exec = checkupdates | wc -l | awk -v o='%{F#7fff00}' -v r='%{F#FF0000}' -v q='%{F-}' '{if ($0 > 0) print r" "q " : " $0; else print o""q " : " $0}' 
+click-left = exec st -e sudo pacman -Syu
 interval = 300
 label = %output%
 format-background = ${colors.background}
 
 ; Separadores --------------------------------------------------------------
-[module/arribaabre]
-type = custom/text
-content ="└"
-label-padding= 0
-content-foreground = ${colors.color6}
-
-[module/arribacierra]
-type = custom/text
-content = "┘"
-label-padding= 0
-content-foreground = ${colors.color6}
-
-[module/abajoabre]
-type = custom/text
-content = "┌"
-label-padding= 0
-content-foreground = ${colors.color10}
-
-[module/abajocierra]
-type = custom/text
-content = "┐"
-label-padding= 0
-content-foreground = ${colors.color10}
 
 [module/slash]
 type = custom/text
@@ -277,23 +276,13 @@ content ="/"
 label-padding= 0
 content-foreground = ${colors.color2}
 
-[module/arribacierra2]
-type = custom/text
-content = "┘"
-label-padding= 0
-content-foreground = ${colors.color14}
 
-[module/guionusuario]
+[module/logotitulo]
 type = custom/text
-content = "‹─"
+content =""
 label-padding= 0
-content-foreground = ${colors.color14}
-
-[module/guionwifi]
-type = custom/text
-content = "─›"
-label-padding= 0
-content-foreground = ${colors.color10}
+content-foreground = ${colors.color6}
+content-background = ${colors.background}
 
 ;MODULOS SIN USAR---------------------------------------------------------<
 
