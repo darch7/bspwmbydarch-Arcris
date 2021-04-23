@@ -44,7 +44,7 @@
 
 ------------------------------------------------------------------------
 
-2- sudo pacman -S zsh-theme-powerlevel10k papirus-icon-theme p7zip unrar zip unzip gzip bzip2 gtk3-nocsdlzop alsa-plugins alsa-utils ttf-dejavu ttf-liberation ttf-bitstream-vera wmname rofi lxrandr polkit-gnome ueberzug slock fzf wireless_tools telegram-desktop neofetch calcurse bc pcmanfm xarchiver lxappearance leafpad transmission-gtk nitrogen pavucontrol geany neovim sxiv blueberry ffmpeg maim xclip xdotool mpv unclutter dunst zathura zathura-pdf-mupdf htop zsh zsh-autosuggestions zsh-history-substring-search zsh-completions zsh-syntax-highlighting ranger ttf-joypixels adobe-source-han-sans-jp-fonts adobe-source-han-serif-jp-fonts awesome-terminal-fonts ttf-font-awesome chromium --needed --noconfirm
+2- sudo pacman -S zsh-theme-powerlevel10k papirus-icon-theme p7zip unrar zip unzip gzip bzip2 gtk3-nocsdlzop alsa-plugins alsa-utils ttf-dejavu ttf-liberation ttf-bitstream-vera wmname rofi lxrandr polkit-gnome ueberzug slock fzf telegram-desktop neofetch calcurse bc pcmanfm xarchiver lxappearance leafpad transmission-gtk nitrogen pavucontrol geany neovim sxiv blueberry ffmpeg maim xclip xdotool mpv unclutter dunst zathura zathura-pdf-mupdf htop zsh zsh-autosuggestions zsh-history-substring-search zsh-completions zsh-syntax-highlighting ranger ttf-joypixels adobe-source-han-sans-jp-fonts adobe-source-han-serif-jp-fonts awesome-terminal-fonts ttf-font-awesome -needed --noconfirm
 
 ------------------------------------------------------------
 instalar spotify + adblock
@@ -131,17 +131,25 @@ confuigurar
 
 p10k configure
 
+---------------------------------------------------------------------------------------------------------------------
+########## QEMU INSTALL 
+---------------------------------------------------------------------------------------------------------------------
+
+1- sudo pacman -S qemu qemu-guest-agent qemu-arch-extra qemu-block-gluster qemu-block-iscsi qemu-block-rbd samba edk2-ovmf virt-viewer virt-manager libvirt ebtables dnsmasq bridge-utils openbsd-netcat spice spice-gtk spice-vdagent xf86-video-qxl 
+
+2- sudo systemctl enable --now libvirtd virtlogd virtlogd.socket virtlockd.socket spice-vdagentd
+
+3- sudo virsh net-autostart default
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
-
-
-
-
-
-#################### SI NO USASTE DARCH INSTALL #######################      EXTRAS
+#################### SI NO USASTE ARCHINSTALL #######################      EXTRAS
 
 
 --------------------------------------------------------------------------------------------------------------
@@ -154,3 +162,27 @@ Mega pack de arch (codecs de multimedia y para que el sistema reconozca todo tip
 # aceleracion grafica para intel 
 
 2- sudo pacman -S xf86-video-intel vulkan-intel mesa lib32-mesa intel-media-driver libva-intel-driver libva-vdpau-driver libvdpau-va-gl libva-utils vdpauinfo intel-compute-runtime clinfo ocl-icd lib32-ocl-icd opencl-headers --needed --noconfirm
+
+
+--------------------------------------------------------------------------------------------------
+
+######## Aplicar cambios en st (temas)
+
+escribir en terminal 
+
+temas 
+
+se aplicaran los cambios de xresources donde estan alojados todos los temas
+
+---------------------------------------------------------------------------------------------------
+(OPCIONAL) 
+
+##### Instalar tema powerlevel10k 
+
+sudo pacman -S zsh-theme-powerlevel10k
+
+echo 'source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+
+confuigurar 
+
+p10k configure
